@@ -1,0 +1,833 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #2f4f4f;
+  font-family: "Noto Sans TC", "Microsoft JhengHei", 微軟正黑體, sans-serif !important;
+  overflow-x: hidden;
+  margin-left: 0;
+}
+
+header {
+  padding: 15px 0;
+  background: #698181;
+  color: #efe6e0;
+  box-shadow: 15px 20px 20px rgba(0, 0, 0, 0.2);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.logo a {
+  color: #efe6e0;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.navigation {
+  list-style: none;
+  display: flex;
+}
+
+.navigation li {
+  margin-left: 20px;
+}
+
+.navigation li a {
+  color: #efe6e0;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.covereditArea {
+  position: absolute;
+  display: none;
+  z-index: 9;
+  width: 100%;
+  height: 800px;
+  background: #161f1fa0;
+  backdrop-filter: blur(0.5rem);
+  transition: opacity 0.3s ease-in-out;
+}
+
+.editArea {
+  display: flex;
+  justify-content: center;
+  margin-top: 7vh;
+  min-height: 720px;
+}
+
+.imgBox {
+  position: relative;
+  margin-right: 850px;
+}
+
+canvas {
+  position: relative;
+}
+
+#black {
+  display: none;
+}
+
+.background {
+  position: absolute;
+  z-index: 0;
+  width: 800px;
+  height: 600px;
+  border-radius: 24px;
+  background: #161f1f;
+  box-shadow: 15px 20px 20px rgba(0, 0, 0, 0.2);
+}
+
+#editingImg0 {
+  opacity: 0;
+  position: absolute;
+  z-index: 1;
+  width: 800px;
+  height: 600px;
+  border: 10px solid palevioletred;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: opacity 1.5s ease-in-out;
+}
+
+#editingImg1 {
+  position: absolute;
+  z-index: 2;
+  width: 800px;
+  height: 600px;
+  border: 5px dashed #efe6e0;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: opacity 1.5s ease-in-out;
+}
+
+#editingImg2 {
+  position: absolute;
+  z-index: 3;
+  width: 800px;
+  height: 600px;
+  border: 5px dashed #efe6e0;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: opacity 1.5s ease-in-out;
+}
+
+#editingImg3 {
+  position: absolute;
+  z-index: 4;
+  width: 800px;
+  height: 600px;
+  border: 5px dashed #efe6e0;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: opacity 1.5s ease-in-out;
+}
+
+#editingImg4 {
+  position: absolute;
+  z-index: 5;
+  width: 800px;
+  height: 600px;
+  border: 5px dashed #efe6e0;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: opacity 1.5s ease-in-out;
+}
+
+#editingImg5 {
+  position: absolute;
+  z-index: 6;
+  width: 800px;
+  height: 600px;
+  border: 5px dashed #efe6e0;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.cover {
+  position: absolute;
+  display: none;
+  background: hsla(0, 0%, 0%, 0);;
+  z-index: 7;
+  width: 800px;
+  height: 600px;
+}
+
+.loadingCircle {
+  position: absolute;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 8;
+  width: 800px;
+  height: 600px;
+  border: 5px dashed #efe6e0;
+  background: #161f1fa0;
+  backdrop-filter: blur(0.5rem);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+svg {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+svg circle {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke-width: 5;
+  stroke: #efe6e0;
+  stroke-linecap: round;
+  transform: translate(5px, 5px);
+  stroke-dasharray: 125;
+  stroke-dashoffset: 125;
+  animation: animate 2S linear infinite;
+}
+
+@keyframes animate {
+
+  0%,
+  100% {
+    stroke-dashoffset: 125;
+  }
+
+  50% {
+    stroke-dashoffset: 0;
+  }
+
+  50.1% {
+    stroke-dashoffset: 245;
+  }
+}
+
+h1 {
+  margin-bottom: 8px;
+  text-align: center;
+  color: #efe6e0;
+}
+
+input {
+  display: none;
+}
+
+.functionBox1 {
+  position: relative;
+  height: 160px;
+  width: 320px;
+  padding: 8px;
+  border-radius: 24px;
+  background: #698181;
+  box-shadow: 15px 20px 20px rgba(0, 0, 0, 0.2);
+}
+
+.functionBox2 {
+  position: relative;
+  margin-top: 20px;
+  height: 370px;
+  width: 320px;
+  padding: 8px;
+  border-radius: 24px;
+  background: #698181;
+  box-shadow: 15px 20px 20px rgba(0, 0, 0, 0.2);
+}
+
+.functionBox1 .btnA {
+  display: block;
+  margin: 15px auto;
+  border: 0;
+  padding: 12px 10px;
+  text-align: center;
+  width: 160px;
+  background: #efe6e0;
+  border-radius: 16px;
+  outline: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: width 0.1s ease-in-out, color 0.3s ease-in-out;
+}
+
+.functionBox2 .btnC,
+.functionBox2 .originalPic {
+  position: absolute;
+  border: 0;
+  padding: 12px 10px;
+  text-align: center;
+  background: #efe6e0;
+  border-radius: 16px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.functionBox2 .btnC {
+  top: 295px;
+  left: 77px;
+  width: 100px;
+}
+
+.functionBox2 .originalPic {
+  top: 295px;
+  left: 192px;
+  width: 55px;
+}
+
+.functionBox2 .btnB {
+  display: block;
+  margin: 15px auto;
+  border: 0;
+  padding: 12px 10px;
+  text-align: center;
+  width: 160px;
+  background: #efe6e0;
+  border-radius: 16px;
+  outline: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: width 0.1s ease-in-out, color 0.3s ease-in-out;
+}
+
+.functionBox2 .Furniture,
+.functionBox2 .Eraser,
+.functionBox2 .Style {
+  display: none;
+  border: 0;
+  background: #efe6e0;
+  border-radius: 16px;
+  outline: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.functionBox2 .Fslt {
+  position: absolute;
+  top: 29px;
+  left: 65px;
+  padding: 10px 5px 8px 15px;
+  width: 120px;
+  background: #efe6e0;
+  font-size: 17px;
+}
+
+.functionBox2 .Fadd {
+  position: absolute;
+  top: 23px;
+  left: 200px;
+  padding: 14px 10px;
+  text-align: center;
+  width: 55px;
+  background: #efe6e0;
+  font-size: 20px;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.functionBox2 .Fclr {
+  position: absolute;
+  top: 89px;
+  left: 80px;
+  padding: 12px 10px;
+  text-align: center;
+  width: 160px;
+  background: #efe6e0;
+  font-size: 20px;
+  transition: transform 0.1s ease-in-out, width 0.1s ease-in-out, color 0.3s ease-in-out;
+  transform-origin: left center;
+  transform: translateZ(0);
+}
+
+.functionBox2 .Fdone {
+  position: absolute;
+  top: 155px;
+  left: 80px;
+  padding: 12px 10px;
+  text-align: center;
+  width: 160px;
+  background: #efe6e0;
+  font-size: 20px;
+  transition: transform 0.1s ease-in-out, width 0.1s ease-in-out, color 0.3s ease-in-out;
+  transform-origin: left center;
+  transform: translateZ(0);
+}
+
+.functionBox2 .Fback {
+  position: absolute;
+  top: 221px;
+  left: 80px;
+  padding: 12px 10px;
+  text-align: center;
+  width: 160px;
+  background: #efe6e0;
+  font-size: 20px;
+  transition: transform 0.1s ease-in-out, width 0.1s ease-in-out, color 0.3s ease-in-out;
+  transform-origin: left center;
+  transform: translateZ(0);
+}
+
+.functionBox2 .Eok {
+  position: absolute;
+  top: 23px;
+  left: 80px;
+  padding: 12px 10px;
+  text-align: center;
+  width: 160px;
+  background: #efe6e0;
+  font-size: 20px;
+  transition: transform 0.1s ease-in-out, width 0.1s ease-in-out, color 0.3s ease-in-out;
+  transform-origin: left center;
+  transform: translateZ(0);
+}
+
+.functionBox2 .Eclr {
+  position: absolute;
+  top: 89px;
+  left: 80px;
+  padding: 12px 10px;
+  text-align: center;
+  width: 160px;
+  background: #efe6e0;
+  font-size: 20px;
+  transition: transform 0.1s ease-in-out, width 0.1s ease-in-out, color 0.3s ease-in-out;
+  transform-origin: left center;
+  transform: translateZ(0);
+}
+
+.functionBox2 .Edone {
+  position: absolute;
+  top: 155px;
+  left: 80px;
+  padding: 12px 10px;
+  text-align: center;
+  width: 160px;
+  background: #efe6e0;
+  font-size: 20px;
+  transition: transform 0.1s ease-in-out, width 0.1s ease-in-out, color 0.3s ease-in-out;
+  transform-origin: left center;
+  transform: translateZ(0);
+}
+
+.functionBox2 .Eback {
+  position: absolute;
+  top: 221px;
+  left: 80px;
+  padding: 12px 10px;
+  text-align: center;
+  width: 160px;
+  background: #efe6e0;
+  font-size: 20px;
+  transition: transform 0.1s ease-in-out, width 0.1s ease-in-out, color 0.3s ease-in-out;
+  transform-origin: left center;
+  transform: translateZ(0);
+}
+
+.functionBox2 .Sslt1 {
+  position: absolute;
+  top: 29px;
+  left: 30px;
+  padding: 10px 5px 8px 15px;
+  width: 120px;
+  background: #efe6e0;
+  font-size: 17px;
+}
+
+.functionBox2 .Sslt2 {
+  position: absolute;
+  top: 29px;
+  left: 170px;
+  padding: 10px 5px 8px 15px;
+  width: 120px;
+  background: #efe6e0;
+  font-size: 17px;
+}
+
+.functionBox2 .Sok {
+  position: absolute;
+  top: 89px;
+  left: 80px;
+  padding: 12px 10px;
+  text-align: center;
+  width: 160px;
+  background: #efe6e0;
+  font-size: 20px;
+  transition: transform 0.1s ease-in-out, width 0.1s ease-in-out, color 0.3s ease-in-out;
+  transform-origin: left center;
+  transform: translateZ(0);
+}
+
+.functionBox2 .Sdone {
+  position: absolute;
+  top: 155px;
+  left: 80px;
+  padding: 12px 10px;
+  text-align: center;
+  width: 160px;
+  background: #efe6e0;
+  font-size: 20px;
+  transition: transform 0.1s ease-in-out, width 0.1s ease-in-out, color 0.3s ease-in-out;
+  transform-origin: left center;
+  transform: translateZ(0);
+}
+
+.functionBox2 .Sback {
+  position: absolute;
+  top: 221px;
+  left: 80px;
+  padding: 12px 10px;
+  text-align: center;
+  width: 160px;
+  background: #efe6e0;
+  font-size: 20px;
+  transition: transform 0.1s ease-in-out, width 0.1s ease-in-out, color 0.3s ease-in-out;
+  transform-origin: left center;
+  transform: translateZ(0);
+}
+
+/* functionbox 的互動功能 ***************************************** */
+
+.functionBox1 .btnA:hover {
+  width: 200px;
+}
+
+.functionBox2 .btnB:hover {
+  width: 200px;
+}
+
+.functionBox2 .btnC:hover {
+  background: #2f4f4f;
+  color: #efe6e0;
+}
+
+.functionBox2 .originalPic:hover {
+  background: #2f4f4f;
+  color: #efe6e0;
+}
+
+.functionBox2 .Fadd:hover {
+  background: #2f4f4f;
+  color: #efe6e0;
+}
+
+.functionBox2 .Fclr:hover {
+  transform: translateX(-20px);
+  width: 200px;
+}
+
+.functionBox2 .Fdone:hover:not([disabled]) {
+  transform: translateX(-20px);
+  width: 200px;
+}
+
+.functionBox2 .Fback:hover {
+  transform: translateX(-20px);
+  width: 200px;
+}
+
+.functionBox2 .Eok:hover {
+  transform: translateX(-20px);
+  width: 200px;
+}
+
+.functionBox2 .Eclr:hover {
+  transform: translateX(-20px);
+  width: 200px;
+}
+
+.functionBox2 .Edone:hover:not([disabled]) {
+  transform: translateX(-20px);
+  width: 200px;
+}
+
+.functionBox2 .Eback:hover {
+  transform: translateX(-20px);
+  width: 200px;
+}
+
+.functionBox2 .Sok:hover {
+  transform: translateX(-20px);
+  width: 200px;
+}
+
+.functionBox2 .Sdone:hover:not([disabled]) {
+  transform: translateX(-20px);
+  width: 200px;
+}
+
+.functionBox2 .Sback:hover {
+  transform: translateX(-20px);
+  width: 200px;
+}
+
+/* functionbox 禁用功能 ******************************************* */
+
+.functionBox1 .btnA[disabled],
+.functionBox1 .btnA[disabled]:hover {
+  width: 160px;
+  pointer-events: none;
+}
+
+.functionBox2 .btnB[disabled],
+.functionBox2 .btnB[disabled]:hover {
+  width: 160px;
+  pointer-events: none;
+}
+
+.functionBox2 .btnC[disabled],
+.functionBox2 .btnC[disabled]:hover {
+  background: #efe6e0;
+  pointer-events: none;
+}
+
+.functionBox2 .Fdone[disabled] .functionBox2 .Fdone[disabled]:hover {
+  transform: none;
+  width: 160px;
+}
+
+.functionBox2 .Edone[disabled] .functionBox2 .Edone[disabled]:hover {
+  transform: none;
+  width: 160px;
+}
+
+.functionBox2 .Sdone[disabled] .functionBox2 .Sdone[disabled]:hover {
+  transform: none;
+  width: 160px;
+}
+
+.functionBox2 .Furniture[disabled],
+.functionBox2 .Furniture[disabled]:hover,
+.functionBox2 .Eraser[disabled],
+.functionBox2 .Eraser[disabled]:hover,
+.functionBox2 .Style[disabled],
+.functionBox2 .Style[disabled]:hover {
+  pointer-events: none;
+}
+
+/* 操作說明欄 ***************************************************** */
+
+.instructionsArea {
+  position: absolute;
+  top: 175px;
+  right: 10px;
+  transition: right 0.5s ease;
+}
+
+.instructionsBox {
+  position: relative;
+}
+
+.instructionsBox .instructionsTitle {
+  position: absolute; 
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 30px;
+  right: -30px;
+  height: 60px;
+  width: 80px;
+  padding: 0 24px 0 0;
+  border-radius: 24px;
+  background: whitesmoke;
+  box-shadow: 15px 20px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.instructionsTitle .icon {
+  text-decoration: none;
+  z-index: 21;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.instructionsBox .instructions {
+  position: absolute;
+  z-index: 21;
+  height: 550px;
+  width: 820px;
+  padding: 20px 15px;
+  border-radius: 24px;
+  background: whitesmoke;
+  overflow: hidden;
+  box-shadow: 15px 20px 20px rgba(0, 0, 0, 0.2);
+}
+
+.instructions .btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 22;
+  height: 60px;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 12px;
+  outline: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.instructions .btn:hover {
+  background: #d1d6d4;
+}
+
+.instructions .btn i {
+  padding-right: 20px;
+}
+
+.instructions .word {
+  display: none;
+  padding: 5px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.7;
+  letter-spacing: 0.5px;
+}
+
+/* 生成紀錄 ******************************************************* */
+
+.imgArea {
+  position: relative;
+}
+
+.imgArea .imgAreaTitle {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -50px;
+  left: 100px;
+  padding: 0 0 20px;
+  width: 220px;
+  height: 80px;
+  border-radius: 24px;
+  background: #698181;
+  box-shadow: 15px 20px 20px rgba(0, 0, 0, 0.2);
+}
+
+.imgAreaTitle .icon {
+  color: #efe6e0;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.imgAreaTitle a {
+  color: #efe6e0;
+  text-decoration: none;
+  padding-left: 10px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.loadingImgArea1,
+.loadingImgArea2 {
+  position: absolute;
+  display: none;
+  z-index: 12;
+  height: 600px;
+  width: 100%;
+  border-radius: 24px;
+  background: hsl(0, 0%, 52%, 0.15);
+  backdrop-filter: blur(0.5rem);
+}
+
+.imgArea #imgArea {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 11;
+  min-height: 600px;
+  width: 100%;
+  padding: 20px 30px;
+  gap: 20px;
+  border-radius: 24px;
+  background: #698181;
+}
+
+#imgArea img {
+  max-width: 200px;
+  max-height: 150px;
+  border: 3px solid #efe6e0;
+  border-radius: 16px;
+  background: #161f1f;
+  cursor: pointer;
+}
+
+/* 頁面底 ********************************************************* */
+
+#scrollToTopBtn {
+  position: absolute;
+  z-index: 15;
+  bottom: 110px;  
+  right: 60px;
+  height: 50px;
+  width: 50px;
+  padding: 10px auto;
+  border: 0;
+  background: #efe6e0;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 16px;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  box-shadow: 15px 20px 20px rgba(0, 0, 0, 0.2);
+}
+
+#scrollToTopBtn:hover {
+  color: #efe6e0;
+  background: #2f4f4f;
+}
+
+footer {
+  position: absolute;
+  z-index: 99;
+  top: 1445px;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  padding: 20px 0;
+  background-color: #161f1f;
+  color: #d1d6d4;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>室內設計編輯器</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://kit.fontawesome.com/79cee5176f.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <a href="index.html">室內設計編輯器</a>
+      </div>
+      <ul class="navigation">
+        <li><a href="#imgArea">生成紀錄</a></li>
+        <li><a href="about.html">關於網站</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="covereditArea"></div>
+  <div class="editArea">
+    <div class="imgBox">
+      <!--全黑圖層    MASK合成使用--> <!--不可見-->
+      <canvas id="black" width="800" height="600"></canvas>
+      <!--背景圖層-->
+      <div class="background" width="800" height="600"></div>
+      <!--初始照片圖層       圖層0--> <!--暫時隱藏-->
+      <canvas id="editingImg0" width="800" height="600" class="Canvas0"></canvas>
+      <!--編輯中圖層         圖層1-->
+      <canvas id="editingImg1" width="800" height="600"></canvas>
+      <!--風格API回傳圖層    圖層2-->
+      <canvas id="editingImg2" width="800" height="600"></canvas>
+      <!--橡皮擦API回傳圖層  圖層3-->
+      <canvas id="editingImg3" width="800" height="600"></canvas>
+      <!--家具編輯圖層       圖層4-->
+      <canvas id="editingImg4" width="800" height="600" class="Canvas4"></canvas>
+      <!--MASK編輯圖層       圖層5-->
+      <canvas id="editingImg5" width="800" height="600" class="Canvas5"></canvas>
+      <div class="cover"></div>
+      <div class="loadingCircle">
+        <svg>
+          <circle cx="20" cy="20" r="20"></circle>
+        </svg>
+      </div>
+    </div>
+
+    <div class="instructionsArea">
+      <div class="instructionsBox">
+        <div class="instructionsTitle">
+          <i class="fa-regular fa-circle-question icon"></i>
+        </div>
+        <div class="instructions">
+          <button id="btn1" class="btn">
+            <i class="fa-solid fa-question"></i>如何使用
+          </button>
+          <div id="word1" class="word">
+            <p>按下上傳按鈕，選擇一張PNG格式的圖片後，可以使用底下功能進行圖片編輯。</p><br>
+            <p>三種編輯功能可以交替使用，透過轉換風格按鈕，將修正前兩種功能編輯後可能存在的缺陷，使編輯結果更加合理。</p><br>
+            <p>能夠自由地切換、查看或返回到先前編輯過的圖像，這有助於使編輯過程更加流暢且具有彈性。</p><br>
+            <p>完成編輯後，點擊下載按鈕，將編輯後的圖片進行保存。</p>
+          </div>
+          <button id="btn2" class="btn">
+            <i class="fa-solid fa-question"></i>新增家具
+          </button>
+          <div id="word2" class="word">
+            <p>右邊功能列選擇家具後，點擊新增按鈕即可對家具圖片進行編輯。</p><br>
+            <p>按住家具圖片可拖曳，滾動滑鼠滾輪可縮放家具。</p><br>
+            <p>編輯完成後按下確認鈕即可儲存。</p>
+          </div>
+          <button id="btn3" class="btn">
+            <i class="fa-solid fa-question"></i>刪除物件
+          </button>
+          <div id="word3" class="word">
+            <p>此功能可以擦除圖像中不需要的物件。</p><br>
+            <p>滾動滑鼠滾輪可調整筆畫大小。</p><br>
+            <p>編輯完成後按下確認鈕即可儲存。</p>
+          </div>
+          <button id="btn3" class="btn">
+            <i class="fa-solid fa-question"></i>風格轉換
+          </button>
+          <div id="word4" class="word">
+            <p>這功能可以將圖片轉換成您喜歡的風格，同時修正任何可能使圖片內容顯得突兀的缺陷。</p><br>
+            <p>編輯完成後按下確認鈕即可儲存。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="functionbox">
+      <h1 class="">功 能 列</h1>
+      <div class="functionBox1">
+        <form action="openFilePicker.php" method="post" enctype="multipart/form-data" target="hiddenFrame">
+          <div>
+            <div>
+              <input type="file" accept="image/*" id="hiddenUploadInput" name="fileUpload">
+              <button onclick="openFilePicker()" class="btnA Start">
+                <i class="fa-regular fa-image"></i> 上傳
+              </button>
+            </div>
+          </div>
+        </form>
+        <button onclick="saveImage()" class="btnA">
+          <i class="fa-solid fa-download"></i> 下載</button>
+      </div>
+
+      <div class="functionBox2">
+        <div>
+          <button onclick="clickFurniture()" class="btnB">
+            <i class="fa-solid fa-plus"></i> 新增家具
+          </button>
+          <select id="selectFurniture" class="Furniture Fslt">
+            <option value="">選擇家具</option>
+            <option value="chest">櫃子</option>
+            <option value="desk">桌子</option>
+            <option value="chair">椅子</option>
+            <option value="lamp">燈飾</option>
+          </select>
+          <button onclick="addFurniture()" class="Furniture Fadd">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <button onclick="clrAll()" class="Furniture Fclr">
+            <i class="fa-solid fa-trash-can"></i> 清除
+          </button>
+          <button onclick="addFurnitureFinish()" class="Furniture Fdone Confirm">
+            <i class="fa-regular fa-thumbs-up"></i> 完成
+          </button>
+          <button onclick="rtn()" class="Furniture Fback">
+            <i class="fa-solid fa-reply"></i> 返回
+          </button>
+        </div>
+
+        <div>
+          <button onclick="clickEraser()" class="btnB">
+            <i class="fa-solid fa-eraser"></i> 刪除物件</button>
+          <button onclick="finishMask()" class="Eraser Eok">
+            <i class="fa-solid fa-check"></i> 套用
+          </button>
+          <button onclick="clrAll()" class="Eraser Eclr">
+            <i class="fa-solid fa-trash-can"></i> 清除
+          </button>
+          <button onclick="eraserFinish()" class="Eraser Edone Confirm">
+            <i class="fa-regular fa-thumbs-up"></i> 完成
+          </button>
+          <button onclick="rtn()" class="Eraser Eback">
+            <i class="fa-solid fa-reply"></i> 返回
+          </button>
+        </div>
+
+        <div>
+          <button onclick="clickStyle()" class="btnB">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> 風格轉換
+          </button>
+          <select id="selectStyle" class="Style Sslt1">
+            <option>選擇風格</option>
+            <option value="classical">現代風</option>
+            <option value="industrial">工業風</option>
+            <option value="nordic">北歐風</option>
+            <option value="country">鄉村風</option>
+            <option value="mediterranean">地中海風</option>
+            <option value="classic">古典風</option>
+            <option value="luxury">奢華風</option>
+          </select>
+          <select id="selectRoom" class="Style Sslt2">
+            <option>選擇房型</option>
+            <option value="bedroom">臥室</option>
+            <option value="living room">客廳</option>
+            <option value="meeting room">會議室</option>
+          </select>
+          <button onclick="changeStyleAPI()" class="Style Sok">
+            <i class="fa-solid fa-check"></i> 套用
+          </button>
+          <button onclick="changeStyleFinish()" class="Style Sdone Confirm">
+            <i class="fa-regular fa-thumbs-up"></i> 完成
+          </button>
+          <button onclick="rtn()" class="Style Sback">
+            <i class="fa-solid fa-reply"></i> 返回
+          </button>
+        </div>
+
+        <div>
+          <button onclick="regret()" class="btnC">
+            <i class="fa-solid fa-reply"></i> 撤銷
+          </button>
+          <div class="originalPic">
+            <i class="fa-solid fa-eye"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="imgArea">
+    <div class="imgAreaTitle">
+      <i class="fa-solid fa-list icon"></i>
+      <a href="#imgArea">生成紀錄</a>
+    </div>
+    <div class="loadingImgArea1"></div>
+    <div class="loadingImgArea2"></div>
+    <div id="imgArea"></div>
+  </div>
+
+  <footer>
+    <button onclick="topFunction()" id="scrollToTopBtn">
+      <i class="fa-solid fa-chevron-up"></i> 
+    </button>
+    <div class="footer">
+      <p>國立澎湖科技大學</p>
+      <p>資訊工程系 專題製作</p>
+      <p>指導教授：林育達 教授</p>
+      <p>專題成員：黃仁杰 1109405007</p>
+      <P>陳冠廷 1109405018</P>
+      <p>韓勝安 1109405052</p>
+      <p>2024.01</p>
+    </div>
+  </footer>
+
+  <script src="functions.js"></script>
+  <script src="buttons.js"></script>
+  <script>
+    const imagePicker = initializeImagePicker();
+    const openFilePicker = imagePicker.openFilePicker;
+  </script>
+</body>
+
+</html>
